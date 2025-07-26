@@ -15,6 +15,7 @@ defmodule Filerah.Dirs do
   # Parse the directory configuration into a standardized format
   defp parse_directory_configs(dirs_opt) do
     IO.inspect(dirs_opt)
+
     Enum.flat_map(dirs_opt, fn
       {:dirs, dir_list} when is_list(dir_list) ->
         Enum.map(dir_list, &parse_single_dir_config/1)

@@ -12,7 +12,6 @@ defmodule Filerah.FileWatcher do
 
     case Filerah.Dirs.parse_and_collect_directories(dirs_opt) do
       {:ok, all_dirs} ->
-        # Pass the collected directories to FileSystem
         updated_args = Keyword.put(fs_args, :dirs, all_dirs)
 
         case FileSystem.start_link(updated_args) do
@@ -36,13 +35,9 @@ defmodule Filerah.FileWatcher do
   def handle_info({:file_event, watcher_pid, {path, events}}, %{watcher_pid: watcher_pid} = state) do
     Logger.debug("File event: #{path} - #{inspect(events)}")
 
-    # Handle new directory creation if watching recursively
     if :created in events and File.dir?(path) do
-      # Could potentially add new directory to watch list here
       Logger.info("New directory created: #{path}")
     end
-
-    # Your custom event handling logic here
 
     {:noreply, state}
   end

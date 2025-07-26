@@ -1,6 +1,5 @@
 defmodule Filerah.Main do
   def start(_type, _args) do
-
     children = [
       {Filerah.FileWatcher,
        [
